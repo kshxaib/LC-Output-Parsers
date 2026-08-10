@@ -20,10 +20,12 @@ template2 = PromptTemplate(
 )
 
 
-parser = StrOutputParser()
+prompt1 = template1.invoke({'topic': "AI"})
+response1 = model.invoke(prompt1)
 
-chain = (template1 | model | parser | template2 | model | parser)
+prompt2 = template2.invoke({'text': response1.content})
+response2 = model.invoke(prompt2)
 
-response = chain.invoke({'topic': 'AI'})
-
-print(response)
+print(response1.content)
+print("-------------------------------------------------------")
+print(response2.content)
